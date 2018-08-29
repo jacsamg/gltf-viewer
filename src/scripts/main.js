@@ -44,14 +44,23 @@ function simpleLight(options = {}) {
   return light;
 }
 
-function loadModel() {
-  const loader = new GLTFLoader();
+class Model {
+  constructor() {
+    this.loadModel();
+  }
 
-  loader.load(
-    'https://storage.googleapis.com/models-glb-for-test/out2.glb',
-    function(gltf) {
-      // onLoad
+  loadModel() {
+    const loader = new GLTFLoader();
+    let model;
 
+    loader.load(
+      'https://storage.googleapis.com/models-glb-for-test/out2.glb',
+      onLoad,
+      onLoading,
+      onError
+    );
+
+    function onLoad(gltf) {
       const light = simpleLight({
         intencity: 3,
         decay: 2,
@@ -59,36 +68,35 @@ function loadModel() {
       });
 
       scene.add(gltf.scene);
-    },
-    function(xhr) {
-      // onLoading
+      model = gltf;
+
+      console.log(model);
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        // Animate here..
+        model.scene.rotation.y += 0.01;
+
+        // Add to render
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    }
+
+    function onLoading(xhr) {
       console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-    },
-    function(error) {
-      // onErrors
+    }
+
+    function onError(error) {
       console.log('An error happened', error);
     }
-  );
+  }
+
+  getModel() {
+    return this.model;
+  }
 }
 
-// ===================
-// Init elements
-// ===================
-
-let model = loadModel();
-console.log('model', model);
-
-// ===================
-// Render
-// ===================
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  // Animate here...
-
-  // Add to render
-  renderer.render(scene, camera);
-}
-
-animate();
+const model = new Model();
