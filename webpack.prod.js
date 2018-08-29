@@ -1,4 +1,6 @@
-const webpack = require('webpack'),
+const path = require('path'),
+  webpack = require('webpack'),
+  CleanWebpackPlugin = require('clean-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   merge = require('webpack-merge'),
   common = require('./webpack.common');
@@ -6,6 +8,9 @@ const webpack = require('webpack'),
 // ====================
 // PLUGINS
 // ====================
+
+// Limpiar la carpeta de distribucion antes de la compilacion
+const cleanDist = new CleanWebpackPlugin([path.resolve(__dirname, './build')]);
 
 // Entorno
 const prod = new webpack.DefinePlugin({
@@ -57,5 +62,5 @@ module.exports = merge(common, {
   module: {
     rules: [styles]
   },
-  plugins: [extractStyles, prod]
+  plugins: [cleanDist, extractStyles, prod]
 });
