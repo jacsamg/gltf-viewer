@@ -1,5 +1,4 @@
 const path = require('path'),
-  CleanWebpackPlugin = require('clean-webpack-plugin'),
   BundleAnalyzerPlugin = require('webpack-bundle-analyzer'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   ThreeWebpackPlugin = require('@wildpeaks/three-webpack-plugin');
@@ -19,9 +18,6 @@ const dist = src('./build');
 // ====================
 // PLUGINS
 // ====================
-
-// Limpiar la carpeta de distribucion antes de la compilacion
-const cleanDist = new CleanWebpackPlugin([dist]);
 
 // Crea graficas de las dependencias
 const analyzer = new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
@@ -75,7 +71,6 @@ module.exports = {
     rules: [javascript]
   },
   plugins: [
-    cleanDist,
     html,
     threeModules
     // analyzer
