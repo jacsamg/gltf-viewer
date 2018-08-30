@@ -1,59 +1,6 @@
 const path = require('path'),
   BundleAnalyzerPlugin = require('webpack-bundle-analyzer'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
   ThreeWebpackPlugin = require('@wildpeaks/three-webpack-plugin');
-
-// ====================
-// VARIABLES Y UTILIDADES
-// ====================
-
-// Crea rutas para archivos y carpetas
-function src(source) {
-  return path.resolve(__dirname, source);
-}
-
-// Ruta de distribucion
-const dist = src('./build');
-
-// ====================
-// PLUGINS
-// ====================
-
-// Crea graficas de las dependencias
-const analyzer = new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
-  analyzerMode: 'static',
-  openAnalyzer: false
-});
-
-// Genera el index.html
-const html = new HtmlWebpackPlugin({
-  hash: false,
-  filename: 'index.html',
-  title: 'GLTF viewer',
-  template: './src/view/index.html'
-});
-
-// Para cargar los modulos de ejemplo de three.js
-const threeModules = new ThreeWebpackPlugin();
-
-// ====================
-// LOADERS
-// ====================
-
-// Javascript
-const javascript = {
-  test: /\.(js)$/,
-  exclude: /node_modules/,
-  use: [
-    {
-      loader: 'babel-loader',
-      options: {
-        // Utiliza browserlist
-        presets: ['@babel/preset-env']
-      }
-    }
-  ]
-};
 
 // ====================
 // CONFIGURACION DE WEBPACK
@@ -61,19 +8,40 @@ const javascript = {
 
 module.exports = {
   entry: {
-    main: [src('./src/scripts/main.js'), src('./src/styles/main.scss')]
+    main: [
+      path.resolve(__dirname, './src/scripts/main.js'),
+      path.resolve(__dirname, './src/styles/main.scss')
+    ]
   },
   output: {
-    path: dist,
+    path: path.resolve(__dirname, './build'),
     filename: '[name].js'
   },
   module: {
-    rules: [javascript]
+    rules: [
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              // Utiliza browserlist
+              presets: ['@babel/preset-env']
+            }
+          }
+        ]
+      }
+    ]
   },
   plugins: [
-    html,
-    threeModules
-    // analyzer
+    // Para cargar los modulos de ejemplo de three.js
+    new ThreeWebpackPlugin()
+    // Crea graficas de las dependencias
+    // new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    //   openAnalyzer: false
+    // })
   ],
   optimization: {
     splitChunks: {
