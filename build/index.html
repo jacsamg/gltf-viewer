@@ -12,20 +12,37 @@
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
   <link rel="stylesheet"
-    href='build/assets/main.css'>
+    href='build/main.css'>
   <title>GLTF viewer</title>
 </head>
 
 <body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <span class="navbar-brand mb-0 h1">GLTF Viewer Testing</span>
+    </div>
+  </nav>
 
-  <div class="container">
+  <div class="container mt-2">
     <div class="row">
-      <div id="render"
-        class="col">
-        Test
+      <div class="col-12 col-md-6">
+        <div class="card">
+          <div id="render"></div>
+        </div>
       </div>
-      <div id=""
-        class="col"></div>
+      <div class="col-12 col-md-6 d-flex align-items-center">
+        <form id="upload"
+          class="w-100">
+          <div class="form-group">
+            <label for="model"><b>Upload model</b></label>
+            <input type='file'
+              class="form-control form-control-file"
+              accept='.glb'
+              name='model'
+              id="model">
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -38,8 +55,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
-  <script src="build/assets/main.js"></script>
-  <script src="build/assets/vendors-main.js"></script>
+  <script src="build/main.js"></script>
+  <script src="build/vendors-main.js"></script>
 </body>
 
 </html>
