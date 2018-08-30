@@ -54,11 +54,11 @@ module.exports = merge(common, {
       filename: 'index.html',
       inject: false,
       scripts: {
-        main: 'build/main.js',
-        vendorsMain: 'build/vendors-main.js'
+        main: 'main.js',
+        vendorsMain: 'vendors-main.js'
       },
       styles: {
-        main: 'build/main.css'
+        main: 'main.css'
       }
     }),
     // Extrae los estilos del 'bundle.js' a sus propios archivos '.css'
