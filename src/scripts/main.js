@@ -25,7 +25,8 @@ function main(model) {
       function animate() {
         requestAnimationFrame(animate);
 
-        staging.model.scene.rotation.y -= 0.01;
+        // staging.model.scene.rotation.y -= 0.01;
+        staging.controls.update();
         staging.renderer.render(staging.scene, staging.camera);
       }
 

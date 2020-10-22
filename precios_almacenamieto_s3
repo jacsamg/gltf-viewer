@@ -1,0 +1,35 @@
+PRECIOS DE AWS
+
+Almacenamiento: 	0.023/GB
+Solicitud: 			0.000005/PUT, COPY, POST y LIST
+					0.0000004/GET y SELECT
+Transferencia:		0.09/GB				
+
+Metrica:			0.00003/Metrica
+Alarma:				0.30/Alarma
+Registros:			0.50/GB entrante
+					0.03/GB almacenado
+Eventos				0.000001/Evento
+
+
+PRECIOS USUARIO
+
+Almacenamiento:		0.575/25GB
+Solcitud:			0.5/100k PUT, COPY, POST y LIST
+					0.4/1m GET y SELECT
+Transferencia:		1.35/15GB
+SUBTOTAL			2.825
+
+Metrica:			0.003/100
+Alarma:				0.60/2
+Registros:			0.50/GB entrante
+					0.03/GB almacenado
+Eventos:			0.001/1k
+SUBTOTAL			1.134
+
+Servidor:	 		1
+Servicio:			4
+SUBTOTAL			5
+
+SUBTOTAL			8.959
+TOTAL				9

@@ -1,5 +1,6 @@
-import * as T from 'three';
+import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/js/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/js/controls/OrbitControls';
 
 export class Staging {
   constructor(options) {
@@ -20,21 +21,21 @@ export class Staging {
       }
     };
 
-    this.scene = new T.Scene();
-    this.camera = new T.PerspectiveCamera(
+    // Definitions
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(
       this.opts.camera.fov,
       this.opts.camera.aspect,
       this.opts.camera.near,
       this.opts.camera.far
     );
     this.camera.position.z = this.opts.camera.position.z;
-    this.renderer = new T.WebGLRenderer({ alpha: true });
+    this.controls = new OrbitControls(this.camera);
     this.model;
-    this.domElement = document.getElementById(this.opts.dom.main);
-    this.onInit();
-  }
 
-  onInit() {
+    // Render
+    this.renderer = new THREE.WebGLRenderer({ alpha: true });
+    this.domElement = document.getElementById(this.opts.dom.main);
     this.renderer.setSize(
       this.domElement.offsetWidth,
       this.domElement.offsetWidth
@@ -42,6 +43,8 @@ export class Staging {
     this.renderer.setClearColor(0xffffff, 0);
     this.domElement.appendChild(this.renderer.domElement);
   }
+
+  onInit() {}
 
   addSimpleLight(options) {
     const opts = {
@@ -54,7 +57,7 @@ export class Staging {
       z: options.z || 100
     };
 
-    const light = new T.PointLight(
+    const light = new THREE.PointLight(
       opts.color,
       opts.intencity,
       opts.distance,
@@ -72,7 +75,8 @@ export class Staging {
       const loader = new GLTFLoader();
 
       loader.load(
-        model || 'https://storage.googleapis.com/models-glb-for-test/out2.glb',
+        model ||
+          'https://storage.googleapis.com/models-glb-for-test/out2-1.glb',
         onLoad.bind(this),
         onLoading.bind(this),
         onError.bind(this)
